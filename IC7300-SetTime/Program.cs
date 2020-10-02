@@ -10,7 +10,9 @@ namespace IC7300_SetTime
     {
         static void Main()
         {
-            
+
+            const int Baut = 9600;
+
             string DatahoraSTR = "FEFE94E01A050095";
             string DatafechaSTR = "FEFE94E01A050094";
             byte[] Datahora;
@@ -52,15 +54,15 @@ namespace IC7300_SetTime
 
 
                 //abrimos puerto y enviamos los datos de configuración
-                using (var port = new SerialPort(PortIcom, 9600))
+                using (var port = new SerialPort(PortIcom, Baut))
                 {
                     port.StopBits = StopBits.Two;
 
-                    //port.Open();
-                    //port.Write(Datahora, 0, Datahora.Length);
-                    //Thread.Sleep(100);
-                    //port.Write(Datafecha, 0, Datafecha.Length);
-                    //Thread.Sleep(200);
+                    port.Open();
+                    port.Write(Datahora, 0, Datahora.Length);
+                    Thread.Sleep(100);
+                    port.Write(Datafecha, 0, Datafecha.Length);
+                    Thread.Sleep(200);
                     port.Close();
                 }
 
