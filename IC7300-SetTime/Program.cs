@@ -2,6 +2,7 @@
 using System.IO.Ports;
 using System.Threading;
 using System.Management;
+using System.Globalization;
 
 namespace IC7300_SetTime
 {
@@ -9,6 +10,7 @@ namespace IC7300_SetTime
     {
         static void Main()
         {
+            
             string DatahoraSTR = "FEFE94E01A050095";
             string DatafechaSTR = "FEFE94E01A050094";
             byte[] Datahora;
@@ -19,20 +21,20 @@ namespace IC7300_SetTime
             string PortIcom = GetPortIcom();
             if (PortIcom != string.Empty)
             {
-                Console.WriteLine("Icom 7300 detectado en puerto {0}.", PortIcom);
+                Console.WriteLine(Languages.Strings.detection, PortIcom);
                 Console.WriteLine();
-                Console.Write("Esperando minuto exacto, tiempo restante: ");
+                Console.Write(Languages.Strings.wait);
 
                 //esperamos que llegue al segundo 00
                 int seg = DateTime.Now.Second;
-                Console.Write((59 - seg).ToString().PadLeft(2, '0') + " seconds.");
+                Console.Write((59 - seg).ToString().PadLeft(2, '0') + Languages.Strings.seconds);
                 while (DateTime.Now.Second != 0)
                 {
                     if (DateTime.Now.Second != seg)
                     {
                         seg = DateTime.Now.Second;
-                        Console.SetCursorPosition(Console.CursorLeft - 11, Console.CursorTop);
-                        Console.Write((59 - seg).ToString().PadLeft(2, '0') + " seconds.");
+                        Console.SetCursorPosition(Console.CursorLeft - (Languages.Strings.seconds.Length + 2), Console.CursorTop);
+                        Console.Write((59 - seg).ToString().PadLeft(2, '0') + Languages.Strings.seconds);
                     }
                     Thread.Sleep(50);
                 }
@@ -54,26 +56,26 @@ namespace IC7300_SetTime
                 {
                     port.StopBits = StopBits.Two;
 
-                    port.Open();
-                    port.Write(Datahora, 0, Datahora.Length);
-                    Thread.Sleep(100);
-                    port.Write(Datafecha, 0, Datafecha.Length);
-                    Thread.Sleep(200);
+                    //port.Open();
+                    //port.Write(Datahora, 0, Datahora.Length);
+                    //Thread.Sleep(100);
+                    //port.Write(Datafecha, 0, Datafecha.Length);
+                    //Thread.Sleep(200);
                     port.Close();
                 }
 
-                Console.WriteLine("Fecha establecida: " + DateTime.Now.ToString("yyyy/MM/dd"));
-                Console.WriteLine("Hora establecida: " + DateTime.Now.ToString("HH:mm"));
+                Console.WriteLine(Languages.Strings.fecha + DateTime.Now.ToString("yyyy/MM/dd"));
+                Console.WriteLine(Languages.Strings.hora + DateTime.Now.ToString("HH:mm"));
                 Console.WriteLine();
 
             }
             else
             {
-                Console.WriteLine("Icom 7300 no detectado.");
+                Console.WriteLine(Languages.Strings.no7300);
             }
 
 
-            Console.WriteLine("Pulse una tecla para salir.");
+            Console.WriteLine(Languages.Strings.salir);
             Console.ReadKey();
         }
 
