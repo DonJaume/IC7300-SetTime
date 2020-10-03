@@ -127,7 +127,7 @@
     <value> seconds.</value>
   </data>
   <data name="fecha" xml:space="preserve">
-    <value>Date Established:</value>
+    <value>Date Established: </value>
   </data>
   <data name="hora" xml:space="preserve">
     <value>Time set: </value>

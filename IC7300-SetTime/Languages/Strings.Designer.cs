@@ -70,7 +70,7 @@ namespace IC7300_SetTime.Languages {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Fecha establecida:.
+        ///   Busca una cadena traducida similar a Fecha establecida: .
         /// </summary>
         internal static string fecha {
             get {

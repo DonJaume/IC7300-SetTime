@@ -121,7 +121,7 @@
     <value>Icom 7300 detectado en puerto {0}.</value>
   </data>
   <data name="fecha" xml:space="preserve">
-    <value>Fecha establecida:</value>
+    <value>Fecha establecida: </value>
   </data>
   <data name="hora" xml:space="preserve">
     <value>Hora establecida: </value>
