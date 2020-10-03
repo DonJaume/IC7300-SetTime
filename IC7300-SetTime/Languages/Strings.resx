@@ -123,6 +123,9 @@
   <data name="detection" xml:space="preserve">
     <value>Icom 7300 detectado en puerto {0}.</value>
   </data>
+  <data name="error" xml:space="preserve">
+    <value>Error: Fecha/Hora no establecidos.</value>
+  </data>
   <data name="fecha" xml:space="preserve">
     <value>Fecha establecida: </value>
   </data>
@@ -134,6 +137,9 @@
   </data>
   <data name="noBaud" xml:space="preserve">
     <value>Baud rate no detectado o comunicación no posible.</value>
+  </data>
+  <data name="ok" xml:space="preserve">
+    <value>Fecha y hora guardados correctamente.</value>
   </data>
   <data name="salir" xml:space="preserve">
     <value>Pulse una tecla para salir.</value>

@@ -3,6 +3,7 @@ using System.IO.Ports;
 using System.Threading;
 using System.Management;
 using System.Globalization;
+using IC7300_SetTime.Languages;
 
 namespace IC7300_SetTime
 {
@@ -18,6 +19,7 @@ namespace IC7300_SetTime
             string DatafechaSTR = "FEFE94E01A050094";
             byte[] Datahora;
             byte[] Datafecha;
+
 
 
             //******************************************* Detectar Puerto del ICOM ***************************************************
@@ -57,11 +59,13 @@ namespace IC7300_SetTime
                     Console.WriteLine();
 
                     //Creamos la matriz de configuracion
-                    DatahoraSTR += DateTime.Now.ToString("HHmm");
+                    string hora_actual = DateTime.Now.ToString("HHmm");
+                    DatahoraSTR += hora_actual;
                     DatahoraSTR += "FD";
                     Datahora = ToByteArray(DatahoraSTR);
 
-                    DatafechaSTR += DateTime.Now.ToString("yyyyMMdd");
+                    string fecha_actual = DateTime.Now.ToString("yyyyMMdd");
+                    DatafechaSTR += fecha_actual;
                     DatafechaSTR += "FD";
                     Datafecha = ToByteArray(DatafechaSTR);
 
@@ -69,8 +73,6 @@ namespace IC7300_SetTime
                     //abrimos puerto y enviamos los datos de configuración
                     using (var port = new SerialPort(PortIcom, Baut))
                     {
-                        port.StopBits = StopBits.Two;
-
                         port.Open();
                         port.Write(Datahora, 0, Datahora.Length);
                         Thread.Sleep(100);
@@ -79,12 +81,22 @@ namespace IC7300_SetTime
                         port.Close();
                     }
 
-                    Console.WriteLine(Languages.Strings.fecha + DateTime.Now.ToString("yyyy/MM/dd"));
-                    Console.WriteLine(Languages.Strings.hora + DateTime.Now.ToString("HH:mm"));
-                    Console.WriteLine();
-
-
-
+                    //****** comprobar escritura ******    
+                    if(Comprobar(fecha_actual, hora_actual, PortIcom, Baut))
+                    {
+                        //escritura realizada correctamente
+                        Console.WriteLine();
+                        Console.WriteLine(Strings.ok);
+                        Console.WriteLine();
+                        Console.WriteLine(Languages.Strings.fecha + DateTime.Now.ToString("yyyy/MM/dd"));
+                        Console.WriteLine(Languages.Strings.hora + DateTime.Now.ToString("HH:mm"));
+                        Console.WriteLine();
+                    }
+                    else
+                    {
+                        //error de escritura fecha / hora
+                        Console.WriteLine(Strings.error);                        
+                    }
                 }
                 else
                 {
@@ -103,11 +115,6 @@ namespace IC7300_SetTime
             Console.WriteLine(Languages.Strings.salir);
             Console.ReadKey();
         }
-
-
-
-
-
 
 
         //Convierte una cadena String en formato hexadecimal a una matriz de bytes
@@ -168,6 +175,47 @@ namespace IC7300_SetTime
             }
             return 0;
         }
+
+
+        static bool Comprobar(string fecha, string hora, string Port, int Baut)
+        {
+            byte[] DATOfecha = ToByteArray("FEFE94E01A050094FD");
+            byte[] DATOhora = ToByteArray("FEFE94E01A050095FD");
+            byte[] lectura = new byte[30];
+            string fechaleida;
+            string horaleida;
+
+            using (var port = new SerialPort(Port, Baut))
+            {
+                port.Open();
+
+                //solicitamos fecha escrita en el icom
+                port.Write(DATOfecha, 0, DATOfecha.Length);
+                Thread.Sleep(50);
+                int leido = port.Read(lectura, 0, port.BytesToRead);
+                
+                fechaleida =
+                    lectura[leido - 5].ToString("X").PadLeft(2, '0') +
+                    lectura[leido - 4].ToString("X").PadLeft(2, '0') +
+                    lectura[leido - 3].ToString("X").PadLeft(2, '0') +
+                    lectura[leido - 2].ToString("X").PadLeft(2, '0');
+
+                //solicitamos hora escrita en el icom
+                port.Write(DATOhora, 0, DATOhora.Length);
+                Thread.Sleep(50);
+                leido = port.Read(lectura, 0, port.BytesToRead);
+
+                horaleida =
+                    lectura[leido - 3].ToString("X").PadLeft(2, '0') +
+                    lectura[leido - 2].ToString("X").PadLeft(2, '0');
+
+                port.Close();
+            }
+
+            if (fecha == fechaleida && hora == horaleida) return true;
+            else return false;
+        }
+
     }
 
 

@@ -79,6 +79,15 @@ namespace IC7300_SetTime.Languages {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Error: Fecha/Hora no establecidos..
+        /// </summary>
+        internal static string error {
+            get {
+                return ResourceManager.GetString("error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Fecha establecida: .
         /// </summary>
         internal static string fecha {
@@ -111,6 +120,15 @@ namespace IC7300_SetTime.Languages {
         internal static string noBaud {
             get {
                 return ResourceManager.GetString("noBaud", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Fecha y hora guardados correctamente..
+        /// </summary>
+        internal static string ok {
+            get {
+                return ResourceManager.GetString("ok", resourceCulture);
             }
         }
         
