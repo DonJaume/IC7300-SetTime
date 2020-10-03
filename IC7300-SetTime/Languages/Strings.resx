@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="baud" xml:space="preserve">
+    <value>Baud rate detectado {0} bps.</value>
+  </data>
   <data name="detection" xml:space="preserve">
     <value>Icom 7300 detectado en puerto {0}.</value>
   </data>
@@ -128,6 +131,9 @@
   </data>
   <data name="no7300" xml:space="preserve">
     <value>Icom 7300 no detectado.</value>
+  </data>
+  <data name="noBaud" xml:space="preserve">
+    <value>Baud rate no detectado o comunicación no posible.</value>
   </data>
   <data name="salir" xml:space="preserve">
     <value>Pulse una tecla para salir.</value>

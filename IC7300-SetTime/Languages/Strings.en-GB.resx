@@ -138,4 +138,10 @@
   <data name="no7300" xml:space="preserve">
     <value>Icom 7300 undetected.</value>
   </data>
+  <data name="baud" xml:space="preserve">
+    <value>Baud rate detected {0} bps.</value>
+  </data>
+  <data name="noBaud" xml:space="preserve">
+    <value>Baud rate not detected or communication not possible.</value>
+  </data>
 </root>

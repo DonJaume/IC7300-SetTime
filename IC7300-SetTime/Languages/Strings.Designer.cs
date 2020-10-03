@@ -61,6 +61,15 @@ namespace IC7300_SetTime.Languages {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Baud rate detectado {0} bps..
+        /// </summary>
+        internal static string baud {
+            get {
+                return ResourceManager.GetString("baud", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Icom 7300 detectado en puerto {0}..
         /// </summary>
         internal static string detection {
@@ -93,6 +102,15 @@ namespace IC7300_SetTime.Languages {
         internal static string no7300 {
             get {
                 return ResourceManager.GetString("no7300", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Baud rate no detectado o comunicación no posible..
+        /// </summary>
+        internal static string noBaud {
+            get {
+                return ResourceManager.GetString("noBaud", resourceCulture);
             }
         }
         
